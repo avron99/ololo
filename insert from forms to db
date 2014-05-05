@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>1WD HTML5 theme</title>
+	<meta charset="utf-8" />
+			 <div class="container">
+    <form method="post" action="" class="form-insert">
+  <fieldset align="center">
+    <legend>anketa</legend>
+    <input type="text" class="span6" placeholder="name" name="name" value=""><br>
+    <input type="text" class="span6" placeholder="work" name="work" value=""><br>
+     <textarea name="comment" cols="40" rows="3" placeholder="comment"></textarea></p>
+    <button type="submit" name="submit">submit</button>
+  </fieldset>
+</form>
+</head>
+</html>
+<?php
+$host = 'localhost';
+$user = 'asd';
+$pswd = '';
+$db_name = 'noobtest';
+try
+{
+	$db = new PDO("mysql:host={$host};dbname={$db_name}", $user, $pswd);
+	$db->exec('SET CHARACTER SET utf8');
+	echo "ok";
+}
+catch (PDOException $e) {
+    print "PDO: " . $e->getMessage() . "<br/>";
+    die();
+}
+
+$name = $_POST['name'];
+$work = $_POST['work'];
+$comment = $_POST['comment'];
+$query = $db->prepare("INSERT INTO articles(`name`,`work`,`comment`) VALUES (?,?,?)");
+$query->execute(array($name,$work,$comment));
+
+?>
